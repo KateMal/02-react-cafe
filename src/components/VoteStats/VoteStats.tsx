@@ -1,5 +1,7 @@
 import css from "./VoteStats.module.css";
-export default function VoteStats({ votes }) {
+import type { Votes } from "../../types/votes";
+
+export default function VoteStats({ votes }: { votes: Votes }) {
   const { good, neutral, bad } = votes;
   const total = good + neutral + bad;
   const positiveRate = total ? Math.round((votes.good / total) * 100) : 0;

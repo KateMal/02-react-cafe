@@ -1,6 +1,15 @@
+import type { VoteType } from "../../types/votes";
 import css from "./VoteOptions.module.css";
-
-export default function VoteOptions({ resetVotes, handleVote, isEmpty }) {
+interface VoteOptionsProps {
+  resetVotes: () => void;
+  handleVote: (type: VoteType) => void;
+  isEmpty: boolean;
+}
+export default function VoteOptions({
+  resetVotes,
+  handleVote,
+  isEmpty,
+}: VoteOptionsProps) {
   return (
     <div className={css.container}>
       <button onClick={() => handleVote("good")} className={css.button}>
