@@ -13,7 +13,7 @@ const initialVotes: Votes = {
 };
 
 export default function App() {
-  const [votes, setVotes] = useState(initialVotes);
+  const [votes, setVotes] = useState<Votes>(initialVotes);
 
   const resetVotes = () => setVotes(initialVotes);
 
@@ -23,17 +23,28 @@ export default function App() {
     });
   };
 
-  const isNotification = votes.good + votes.neutral + votes.bad === 0;
+  const totalVotes = votes.good + votes.neutral + votes.bad;
+  const positiveRate = totalVotes
+    ? Math.round((votes.good / totalVotes) * 100)
+    : 0;
 
   return (
     <div className={css.app}>
       <CafeInfo />
       <VoteOptions
-        resetVotes={resetVotes}
-        handleVote={handleVote}
-        isEmpty={isNotification}
+        onReset={resetVotes}
+        onVote={handleVote}
+        canReset={totalVotes > 0}
       />
-      {isNotification ? <Notification /> : <VoteStats votes={votes} />}
+      {totalVotes === 0 ? (
+        <Notification />
+      ) : (
+        <VoteStats
+          votes={votes}
+          totalVotes={totalVotes}
+          positiveRate={positiveRate}
+        />
+      )}
     </div>
   );
 }
