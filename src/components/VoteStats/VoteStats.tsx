@@ -1,15 +1,17 @@
 import css from "./VoteStats.module.css";
 import type { Votes } from "../../types/votes";
 
+interface VoteStatsProps {
+  votes: Votes;
+  totalVotes: number;
+  positiveRate: number;
+}
+
 export default function VoteStats({
   votes,
   totalVotes,
   positiveRate,
-}: {
-  votes: Votes;
-  totalVotes: number;
-  positiveRate: number;
-}) {
+}: VoteStatsProps) {
   const { good, neutral, bad } = votes;
 
   return (
